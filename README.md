@@ -19,18 +19,19 @@ P
 ## PROGRAM - ARP
 ```
  
+
 import socket 
 s=socket.socket() 
-s.bind(('localhost',9000)) 
+s.bind(('localhost',8000)) 
 s.listen(5) 
 c,addr=s.accept() 
-address={"6A:08:AA:C2":"192.168.1.100","8A:BC:E3:FA":"192.168.1.99"}; 
+address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"}; 
 while True: 
             ip=c.recv(1024).decode() 
             try: 
                 c.send(address[ip].encode()) 
             except KeyError: 
-                c.send("Not Found".encode())
+                c.send("Not Found".encode())  
 ```
 
 ## OUTPUT - ARP
@@ -41,14 +42,15 @@ while True:
 ## PROGRAM - RARP
 ```
  
+ 
 import socket 
 s=socket.socket() 
-s.connect(('localhost',9000)) 
+s.connect(('localhost',8000)) 
 while True: 
-    ip=input("Enter MAC Address : ") 
-  
+
+    ip=input("Enter logical Address : ") 
     s.send(ip.encode()) 
-    print("Logical Address",s.recv(1024).decode())
+    print("MAC Address",s.recv(1024).decode())
 
 ```
 ## OUTPUT -RARP
